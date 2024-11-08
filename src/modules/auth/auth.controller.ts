@@ -1,14 +1,19 @@
 import { Controller, Post, UseGuards, Request, Get } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { AuthService } from './service/auth.service';
-import { UsersService } from '../users/service/users.service';
+import { Repository } from 'typeorm';
+import dataSource from 'ormconfig.sample';
+import { User } from 'src/models/user.entity';
 
 @Controller('auth')
 export class AuthController {
+  private userRepository: Repository<User>;
+
   constructor(
-    private authService: AuthService,
-    private usersService: UsersService,
-  ) {}
+    private authService: AuthService
+  ) {
+    this.userRepository = dataSource.getRepository(User);
+  }
 
   @UseGuards(AuthGuard('local'))
   @Post('login')
@@ -25,7 +30,7 @@ export class AuthController {
   @UseGuards(AuthGuard('jwt'))
   @Post('refresh')
   async refresh(@Request() req) {
-    const user = await this.usersService.findById(req.user.sub)
+    const user = await this.userRepository.findOneBy({id: req.user.sub});
     return this.authService.login(user);
   }
 }
