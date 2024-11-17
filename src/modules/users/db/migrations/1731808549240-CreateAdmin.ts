@@ -2,7 +2,7 @@ import { User } from 'src/models/user.entity';
 import { MigrationInterface, QueryRunner, Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 
-export class CreateAdmin1731033506906 implements MigrationInterface {
+export class CreateAdmin1731808549240 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     const userRepository: Repository<User> =
       queryRunner.connection.getRepository(User);

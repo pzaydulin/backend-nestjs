@@ -9,11 +9,11 @@ export class User {
   username: string;
 
   @Column({ nullable: false })
-  password_hash?: string;
+  passwordHash?: string;
 
   @CreateDateColumn()
-  created_at?: Date;
+  createdAt?: Date;
 
   @UpdateDateColumn()
-  updated_at?: Date;
+  updatedAt?: Date;
 }

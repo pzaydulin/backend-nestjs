@@ -9,9 +9,7 @@ import { User } from 'src/models/user.entity';
 export class AuthController {
   private userRepository: Repository<User>;
 
-  constructor(
-    private authService: AuthService
-  ) {
+  constructor(private authService: AuthService) {
     this.userRepository = dataSource.getRepository(User);
   }
 
@@ -30,7 +28,7 @@ export class AuthController {
   @UseGuards(AuthGuard('jwt'))
   @Post('refresh')
   async refresh(@Request() req) {
-    const user = await this.userRepository.findOneBy({id: req.user.sub});
+    const user = await this.userRepository.findOneBy({ id: req.user.sub });
     return this.authService.login(user);
   }
 }
