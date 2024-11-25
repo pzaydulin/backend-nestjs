@@ -12,17 +12,18 @@ export const dataSourceOptions: DataSourceOptions = {
   synchronize: true,
   migrationsRun: false,
   logging: true,
-  migrations: ['dist/src/**/db/migrations/*{.ts,.js}'],
+  migrations: ['dist/src/modules/**/db/migrations/*{.ts,.js}'],
 };
 
-// connectionSource
-//   .initialize()
-//   .then(() => {
-//     console.log('Data Source has been initialized!');
-//   })
-//   .catch((err) => {
-//     console.error('Error during Data Source initialization', err);
-//   });
+export const dataSource = new DataSource(dataSourceOptions);
 
-const dataSource = new DataSource(dataSourceOptions);
-export default dataSource;
+dataSource
+  .initialize()
+  .then(() => {
+    console.log('Data Source has been initialized!');
+  })
+  .catch((err) => {
+    console.error('Error during Data Source initialization', err);
+  });
+
+// export default dataSource;
